@@ -2,11 +2,18 @@ import { createBrowserRouter } from "react-router-dom";
 import Layout from "../pages/Layout";
 import Login from "../pages/Login";
 
+import { AuthorRoute } from "../components/AuthorRoute";
+
 const router = createBrowserRouter(
   [
     {
       path: "/",
-      element: <Layout />,
+      element: (
+        //将Layout组件包裹起来当作children组件传参
+        <AuthorRoute>
+          <Layout />
+        </AuthorRoute>
+      ),
     },
     {
       path: "/login",
