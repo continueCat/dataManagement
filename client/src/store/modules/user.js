@@ -5,25 +5,24 @@ const userStore = createSlice({
   name: "user",
   //初始数据状态
   initialState: {
-    token: "",
+    token: localStorage.getItem("authorization")
+      ? localStorage.getItem("authorization")
+      : "",
   },
   //同步修改方法
   reducers: {
     setToken(state, action) {
       state.token = action.payload;
+      localStorage.setItem("authorization", action.payload);
     },
   },
 });
 
 // 异步修改方法
-const fetchLogin = () => {
+const fetchLogin = (loginForm) => {
   return async (dispatch) => {
-    const res = await request.post("/api/user/login", {
-      username: "zyz",
-      password: "123456",
-    });
+    const res = await request.post("/api/user/login", loginForm);
     dispatch(setToken(res.data.result.data.token));
-    // console.log(res.data.result.data.token);
   };
 };
 
