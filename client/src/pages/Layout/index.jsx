@@ -1,34 +1,25 @@
 import React, { useState } from "react";
-import {
-  DesktopOutlined,
-  FileOutlined,
-  PieChartOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
+import { DesktopOutlined, PieChartOutlined } from "@ant-design/icons";
 import { Layout, Menu, Switch } from "antd";
 
 import "./style.scss";
 import { Outlet } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 const { Sider, Header } = Layout;
 
 function getItem(label, key, icon, children) {
   return {
+    label,
     key,
     icon,
     children,
-    label,
   };
 }
 
 const items = [
-  getItem("数据详情", "1", <PieChartOutlined />),
-  getItem("标签详情", "2", <DesktopOutlined />),
-  getItem("User", "sub1", <UserOutlined />, [
-    getItem("Tom", "3"),
-    getItem("Bill", "4"),
-    getItem("Alex", "5"),
-  ]),
-  getItem("Files", "6", <FileOutlined />),
+  getItem("数据详情", "Data", <PieChartOutlined />),
+  getItem("标签详情", "Tags", <DesktopOutlined />),
 ];
 
 const headerStyle = {
@@ -40,6 +31,12 @@ const headerStyle = {
 
 const LayoutApp = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const navigate = useNavigate();
+  const handleMenuClick = (item) => {
+    // console.log("菜单被点击", item);
+    const path = item.key;
+    navigate(path);
+  };
 
   return (
     <>
@@ -64,6 +61,7 @@ const LayoutApp = () => {
             defaultSelectedKeys={["1"]}
             mode="inline"
             items={items}
+            onClick={handleMenuClick}
           />
         </Sider>
         <Layout className="layout-content">
