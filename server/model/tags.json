@@ -1,0 +1,32 @@
+[
+  {
+    "id": "f0847fa0-a6c8-4028-850d-560a4c9d58fb",
+    "name": "Dance",
+    "color": "yellow"
+  },
+  {
+    "id": "f0847fa0-a6c8-4028-850d-560dsaa4c9d58fb",
+    "name": "Tennis",
+    "color": "Red"
+  },
+  {
+    "id": "f0847fa0-a6c8-4028-850d-560a4thddc9d58fb",
+    "name": "Basketball",
+    "color": "blue"
+  },
+  {
+    "id": "f0847fa0-a6c8-4028-850d-560a5354c9d58fb",
+    "name": "Soccer",
+    "color": "green"
+  },
+  {
+    "id": "f0847fa0-a6c8-4028-854520d-560a4c9d58fb",
+    "name": "Sing",
+    "color": "pink"
+  },
+  {
+    "id": "f0847fa0-a6c8-40234228-850d-560a4c9d58fb",
+    "name": "Swimming",
+    "color": "skyblue"
+  }
+]
