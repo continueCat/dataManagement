@@ -1,6 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import LayoutApp from "../pages/Layout";
 import Login from "../pages/Login";
+import DataDetails from "../pages/DataDetails";
+import TagsDetails from "../pages/TagsDetails";
 
 import { AuthorRoute } from "../components/AuthorRoute";
 
@@ -14,6 +16,16 @@ const router = createBrowserRouter(
           <LayoutApp />
         </AuthorRoute>
       ),
+      children: [
+        {
+          path: "Data",
+          element: <DataDetails></DataDetails>,
+        },
+        {
+          path: "Tags",
+          element: <TagsDetails></TagsDetails>,
+        },
+      ],
     },
     {
       path: "/login",

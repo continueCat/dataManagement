@@ -8,6 +8,7 @@ import {
 import { Layout, Menu, Switch } from "antd";
 
 import "./style.scss";
+import { Outlet } from "react-router-dom";
 const { Sider, Header } = Layout;
 
 function getItem(label, key, icon, children) {
@@ -27,7 +28,7 @@ const items = [
     getItem("Bill", "4"),
     getItem("Alex", "5"),
   ]),
-  getItem("Files", "9", <FileOutlined />),
+  getItem("Files", "6", <FileOutlined />),
 ];
 
 const headerStyle = {
@@ -65,6 +66,9 @@ const LayoutApp = () => {
             items={items}
           />
         </Sider>
+        <Layout className="layout-content">
+          <Outlet></Outlet>
+        </Layout>
       </Layout>
     </>
   );
