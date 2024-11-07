@@ -4,7 +4,7 @@ import { Layout, Menu, Switch } from "antd";
 
 import "./style.scss";
 import { Outlet } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const { Sider, Header } = Layout;
 
@@ -18,8 +18,8 @@ function getItem(label, key, icon, children) {
 }
 
 const items = [
-  getItem("数据详情", "Data", <PieChartOutlined />),
-  getItem("标签详情", "Tags", <DesktopOutlined />),
+  getItem("数据详情", "/Data", <PieChartOutlined />),
+  getItem("标签详情", "/Tags", <DesktopOutlined />),
 ];
 
 const headerStyle = {
@@ -37,6 +37,10 @@ const LayoutApp = () => {
     const path = item.key;
     navigate(path);
   };
+
+  //获取当前路由路径
+  const location = useLocation();
+  // console.log(location.pathname);
 
   return (
     <>
@@ -58,7 +62,7 @@ const LayoutApp = () => {
           <div className="demo-logo-vertical" />
           <Menu
             theme="dark"
-            defaultSelectedKeys={["1"]}
+            selectedKeys={location.pathname}
             mode="inline"
             items={items}
             onClick={handleMenuClick}
