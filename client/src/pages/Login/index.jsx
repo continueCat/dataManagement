@@ -2,9 +2,8 @@ import "./style.scss";
 import { Form, Input, Button, Checkbox, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
-import { fetchLogin, setUserName } from "../../store/modules/user";
+import { fetchLogin } from "../../store/modules/user";
 import { useNavigate } from "react-router-dom";
-import { setUserInfo } from "../../utils";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();

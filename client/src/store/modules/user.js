@@ -9,6 +9,8 @@ import {
   setUserInfo,
 } from "../../utils";
 
+import { LoginAPI } from "../../apis/user";
+
 const userStore = createSlice({
   name: "user",
   //初始数据状态
@@ -40,7 +42,7 @@ const userStore = createSlice({
 // 异步修改方法
 const fetchLogin = (loginForm) => {
   return async (dispatch) => {
-    const res = await request.post("/api/user/login", loginForm);
+    const res = await LoginAPI(loginForm);
     const userName = loginForm.username;
     dispatch(setToken(res.data.result.data.token));
     dispatch(setUserName(userName));
