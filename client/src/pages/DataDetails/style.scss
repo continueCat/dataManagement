@@ -1,0 +1,29 @@
+.data-search {
+  position: relative;
+  margin: 40px 25px 0;
+  height: 100px;
+  background-color: #fff;
+
+  .data-search-form {
+    width: 100%;
+    // margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    .ant-form {
+      justify-content: space-around;
+
+      .data-search-detail {
+        display: flex;
+        gap: 20px;
+      }
+    }
+  }
+
+  .data-search-buttons {
+    display: flex;
+    gap: 10px;
+  }
+}
