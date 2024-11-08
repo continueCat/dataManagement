@@ -14,6 +14,8 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { LoginOut } from "../../store/modules/user";
 
+import { updateLanguage } from "../../store/modules/language";
+
 const { Sider, Header } = Layout;
 
 function getItem(label, key, icon, children) {
@@ -56,12 +58,21 @@ const LayoutApp = () => {
     navigate("/login");
   };
 
+  const onChange = (checked) => {
+    if (checked) {
+      dispatch(updateLanguage({ lang: "zh" }));
+    } else {
+      dispatch(updateLanguage({ lang: "en" }));
+    }
+  };
+
   return (
     <>
       <Header style={headerStyle} className="layout-header">
         <div className="header-left">
           <span>数据管理平台</span>
           <Switch
+            onChange={onChange}
             checkedChildren="中文"
             unCheckedChildren="En"
             defaultChecked

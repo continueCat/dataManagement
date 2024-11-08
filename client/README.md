@@ -1,8 +1,5 @@
-# React + Vite
+### 1. 切换语言
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+快速切换的时候，redux 显示跟不上
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 2. 页面缩小时，静态结构混乱
