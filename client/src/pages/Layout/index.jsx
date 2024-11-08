@@ -1,10 +1,18 @@
 import React, { useState } from "react";
-import { DesktopOutlined, PieChartOutlined } from "@ant-design/icons";
-import { Layout, Menu, Switch } from "antd";
+import {
+  DesktopOutlined,
+  PieChartOutlined,
+  PoweroffOutlined,
+} from "@ant-design/icons";
+import { Layout, Menu, Switch, Popconfirm } from "antd";
 
 import "./style.scss";
 import { Outlet } from "react-router-dom";
 import { useNavigate, useLocation } from "react-router-dom";
+
+import { useSelector, useDispatch } from "react-redux";
+
+import { LoginOut } from "../../store/modules/user";
 
 const { Sider, Header } = Layout;
 
@@ -33,25 +41,47 @@ const LayoutApp = () => {
   const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
   const handleMenuClick = (item) => {
-    // console.log("菜单被点击", item);
     const path = item.key;
     navigate(path);
   };
 
   //获取当前路由路径
   const location = useLocation();
-  // console.log(location.pathname);
+
+  const userName = useSelector((state) => state.user.userName);
+
+  const dispatch = useDispatch();
+  const onConfirm = () => {
+    dispatch(LoginOut());
+    navigate("/login");
+  };
 
   return (
     <>
       <Header style={headerStyle} className="layout-header">
-        数据信息管理平台
-        <Switch
-          checkedChildren="中文"
-          unCheckedChildren="En"
-          defaultChecked
-          className="custom-switch"
-        />
+        <div className="header-left">
+          <span>数据管理平台</span>
+          <Switch
+            checkedChildren="中文"
+            unCheckedChildren="En"
+            defaultChecked
+            className="custom-switch"
+          />
+        </div>
+
+        <div className="userInfo">
+          <span className="user-name">{userName}</span>
+          <span className="user-logout">
+            <Popconfirm
+              title="是否确认退出？"
+              okText="退出"
+              cancelText="取消"
+              onConfirm={onConfirm}
+            >
+              <PoweroffOutlined />
+            </Popconfirm>
+          </span>
+        </div>
       </Header>
       <Layout style={{ minHeight: "100vh" }}>
         <Sider

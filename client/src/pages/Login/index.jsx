@@ -2,13 +2,15 @@ import "./style.scss";
 import { Form, Input, Button, Checkbox, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
-import { fetchLogin } from "../../store/modules/user";
+import { fetchLogin, setUserName } from "../../store/modules/user";
 import { useNavigate } from "react-router-dom";
+import { setUserInfo } from "../../utils";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const onFinish = async (values) => {
     const { username, password } = values;
+
     await dispatch(fetchLogin({ username, password }));
     //跳转到首页
     navigate("/");

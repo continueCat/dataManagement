@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const usersService = require('../service/user');
 const bcrypt = require('bcryptjs');
-const { JWT_SECRET } = require('../config/config.default')
+const { JWT_SECRET } = require('../config/config.default');
 /**
  * 注册用户
  * @param {object} ctx - Koa 上下文对象
