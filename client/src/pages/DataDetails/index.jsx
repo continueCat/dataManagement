@@ -1,14 +1,16 @@
-import { Form, Input, Select, DatePicker, Button, Table } from "antd";
+import { Form, Input, Select, DatePicker, Button, Table, Tag } from "antd";
 import "./style.scss";
-
+import dayjs from "dayjs";
 import {
   SearchOutlined,
   ReloadOutlined,
   PlusOutlined,
 } from "@ant-design/icons";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchLanguage } from "../../store/modules/language";
+import { DataListAPI } from "../../apis/data";
+
 const { RangePicker } = DatePicker;
 
 const options = [
@@ -17,89 +19,110 @@ const options = [
   { label: "Tag 3", value: "3" },
 ];
 
-const dataSource = [
-  {
-    key: "1",
-    name: "John Brown",
-    age: 32,
-    address: "New York No. 1 Lake Park",
-  },
-  {
-    key: "2",
-    name: "Jim Green",
-    age: 42,
-    address: "London No. 1 Lake Park",
-  },
-  {
-    key: "3",
-    name: "Joe Black",
-  },
-];
-
-const columns = [
-  {
-    title: "编号",
-    dataIndex: "number",
-    key: "number",
-    width: "5%",
-  },
-  {
-    title: "名称",
-    dataIndex: "name",
-    key: "name",
-    width: "10%",
-  },
-  {
-    title: "描述",
-    dataIndex: "description",
-    key: "description",
-    width: "15%",
-  },
-  {
-    title: "添加时间",
-    dataIndex: "addTime",
-    key: "addTime",
-    width: "15%",
-  },
-  {
-    title: "标签",
-    dataIndex: "tags",
-    key: "tags",
-    width: "25%",
-  },
-  {
-    title: "图片",
-    dataIndex: "img",
-    key: "img",
-    width: "15%",
-  },
-  {
-    title: "操作",
-    key: "action",
-    dataIndex: "action",
-    width: "15%",
-    render: (_, record) => (
-      <div>
-        <Button color="primary" variant="link">
-          编辑
-        </Button>
-        <Button color="danger" variant="link">
-          删除
-        </Button>
-      </div>
-    ),
-  },
-];
-
 const DataDetails = () => {
+  const [dataSource, setDataSource] = useState([]);
+  const [pagination, setPagination] = useState({ current: 1, pageSize: 10 });
+
+  // Table columns
+  const columns = [
+    {
+      title: "编号",
+      dataIndex: "number",
+      key: "number",
+      width: "5%",
+      render: (_, __, index) => {
+        return (pagination.current - 1) * pagination.pageSize + index + 1;
+      },
+    },
+    {
+      title: "名称",
+      dataIndex: "name",
+      key: "name",
+      width: "10%",
+    },
+    {
+      title: "描述",
+      dataIndex: "description",
+      key: "description",
+    },
+    {
+      title: "添加时间",
+      dataIndex: "time",
+      key: "addTime",
+      width: "15%",
+      render: (time) => dayjs(time).format("YYYY-MM-DD HH:mm:ss"),
+    },
+    {
+      title: "标签",
+      dataIndex: "tags",
+      key: "tags",
+      width: "15%",
+      render: (tags) => (
+        <span>
+          {tags.map((tag) => {
+            let color = tag.length > 5 ? "geekblue" : "green";
+            if (tag === "loser") {
+              color = "volcano";
+            }
+            return (
+              <Tag color={color} key={tag}>
+                {tag.toUpperCase()}
+              </Tag>
+            );
+          })}
+        </span>
+      ),
+    },
+    {
+      title: "图片",
+      dataIndex: "url",
+      key: "img",
+      width: "10%",
+      render: (url) => <img src={url} alt="图片" style={{ width: "50px" }} />,
+    },
+    {
+      title: "操作",
+      key: "action",
+      dataIndex: "action",
+      width: "12%",
+      render: (_, record) => (
+        <div>
+          <Button color="primary" variant="link">
+            编辑
+          </Button>
+          <Button color="danger" variant="link">
+            删除
+          </Button>
+        </div>
+      ),
+    },
+  ];
+
+  // Handle table pagination change
+  const handleTableChange = (pagination) => {
+    setPagination(pagination);
+  };
+
   const onFinish = (values) => {
     console.log("Success:", values);
   };
 
   const dispatch = useDispatch();
 
+  // Fetch language data on mount
   useEffect(() => {
     dispatch(fetchLanguage());
+  }, [dispatch]);
+
+  // Fetch data on mount
+  useEffect(() => {
+    DataListAPI().then((res) => {
+      const formattedData = res.data.data.dataInfo.map((item) => ({
+        ...item,
+        key: item.id,
+      }));
+      setDataSource(formattedData);
+    });
   }, []);
 
   return (
@@ -155,6 +178,9 @@ const DataDetails = () => {
           dataSource={dataSource}
           columns={columns}
           className="data-table"
+          pagination={pagination}
+          onChange={handleTableChange}
+          rowKey="id"
         />
       </div>
     </>
