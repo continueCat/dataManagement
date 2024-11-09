@@ -27,7 +27,7 @@ const updateLanguage = (lang) => {
   return async (disPatch) => {
     await setLangAPI(lang);
     const curLang = await LangAPI();
-    console.log(curLang.data.data);
+    // console.log(curLang.data.data);
     disPatch(setLanguage(curLang.data.data));
   };
 };

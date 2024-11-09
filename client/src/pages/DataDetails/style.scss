@@ -26,6 +26,22 @@
 
   .data-search-buttons {
     display: flex;
-    gap: 10px;
+    gap: 20px;
+  }
+}
+
+.data-contain {
+  margin: 40px 25px 0;
+  height: 100%;
+  background-color: #fff;
+  overflow: hidden;
+
+  .data-add-button {
+    float: right;
+    margin: 20px 60px 20px auto;
+  }
+
+  .data-table {
+    margin: 0 60px;
   }
 }
